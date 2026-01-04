@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: progressive_overload_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: progressive_overload
+    ports:
+      - "5433:5432"
+    volumes:
+      - progressive_overload_pgdata:/var/lib/postgresql/data
+
+volumes:
+  progressive_overload_pgdata:
