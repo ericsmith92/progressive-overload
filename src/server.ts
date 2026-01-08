@@ -3,6 +3,7 @@ import { assertDbConnection, sequelize } from "./config/db.js";
 import { initModels } from "./db/models/index.js";
 import { User } from "./db/models/user.model.js";
 import { Exercise } from "./db/models/exercise.model.js";
+import { ExerciseLog } from "./db/models/exercise_log.model.js";
 
 await sequelize.authenticate();
 initModels(sequelize);
@@ -69,6 +70,32 @@ app.post("/exercises", async (req, res, next) => {
     });
 
     res.status(201).json(exercise);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/exercise-logs", async (req, res, next) => {
+  try {
+    const exerciseLogs = await ExerciseLog.findAll();
+
+    res.status(200).json(exerciseLogs);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/exercise-logs", async (req, res, next) => {
+  try {
+    const { userId, exerciseId, performedOn, weight } = req.body;
+    const exerciseLog = await ExerciseLog.create({
+      userId,
+      exerciseId,
+      performedOn,
+      weight,
+    });
+
+    res.status(201).json(exerciseLog);
   } catch (error) {
     next(error);
   }
