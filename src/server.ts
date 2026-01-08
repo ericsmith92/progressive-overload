@@ -2,6 +2,7 @@ import express from "express";
 import { assertDbConnection, sequelize } from "./config/db.js";
 import { initModels } from "./db/models/index.js";
 import { User } from "./db/models/user.model.js";
+import { Exercise } from "./db/models/exercise.model.js";
 
 await sequelize.authenticate();
 initModels(sequelize);
@@ -44,6 +45,30 @@ app.post("/users", async (req, res, next) => {
     });
 
     res.status(201).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/exercises", async (req, res, next) => {
+  try {
+    const exercises = await Exercise.findAll();
+
+    res.status(200).json(exercises);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/exercises", async (req, res, next) => {
+  try {
+    const { name } = req.body;
+
+    const exercise = await Exercise.create({
+      name,
+    });
+
+    res.status(201).json(exercise);
   } catch (error) {
     next(error);
   }

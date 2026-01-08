@@ -1,4 +1,4 @@
-import { DataTypes, Model, type Optional, Sequelize } from "sequelize";
+import { DataTypes, Model, type Optional, type Sequelize } from "sequelize";
 
 export type UserAttributes = {
   id: string;
