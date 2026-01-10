@@ -6,10 +6,6 @@ import usersRouter from "./users.routes.js";
 
 const router: Router = express.Router();
 
-// router.get("/boom", (req, res, next) => {
-//   next(new Error("Test error"));
-// });
-
 router.use("/exercises", exercisesRouter);
 router.use("/exercise-logs", exerciseLogsRouter);
 router.use("/health", healthRouter);
