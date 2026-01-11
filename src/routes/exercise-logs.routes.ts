@@ -1,5 +1,6 @@
 import express, { type Router } from "express";
 import { ExerciseLog } from "../db/models/exercise_log.model.js";
+import { validateCreateExerciseLog } from "../middleware/validation/validate-create-exercise-log.js";
 
 const router: Router = express.Router();
 
@@ -13,9 +14,11 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", validateCreateExerciseLog, async (req, res, next) => {
   try {
-    const { userId, exerciseId, performedOn, weight } = req.body;
+    const { userId, exerciseId, weight } = req.body;
+    const performedOn = new Date();
+
     const exerciseLog = await ExerciseLog.create({
       userId,
       exerciseId,
