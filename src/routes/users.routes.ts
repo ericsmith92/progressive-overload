@@ -1,5 +1,6 @@
 import express, { type Router } from "express";
 import { User } from "../db/models/user.model.js";
+import { validateCreateUser } from "../middleware/validation/validate-create-user.js";
 
 const router: Router = express.Router();
 
@@ -13,7 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", validateCreateUser, async (req, res, next) => {
   try {
     const { email, displayName } = req.body;
 
