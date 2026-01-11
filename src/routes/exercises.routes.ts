@@ -1,5 +1,6 @@
 import express, { type Router } from "express";
 import { Exercise } from "../db/models/exercise.model.js";
+import { validateCreateExercise } from "../middleware/validation/validate-create-exercise.js";
 
 const router: Router = express.Router();
 
@@ -13,7 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", validateCreateExercise, async (req, res, next) => {
   try {
     const { name } = req.body;
 
