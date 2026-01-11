@@ -5,7 +5,7 @@ export type ExerciseLogAttributes = {
   userId: string;
   exerciseId: string;
   performedOn: Date;
-  weight: string;
+  weight: number;
 };
 
 export type ExerciseLogCreationAttributes = Optional<
@@ -21,7 +21,7 @@ export class ExerciseLog
   public userId!: string;
   public exerciseId!: string;
   public performedOn!: Date;
-  public weight!: string;
+  public weight!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
@@ -63,7 +63,7 @@ export class ExerciseLog
         },
 
         weight: {
-          type: DataTypes.STRING,
+          type: DataTypes.NUMBER,
           allowNull: false,
         },
       },

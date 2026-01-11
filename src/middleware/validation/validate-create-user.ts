@@ -1,10 +1,12 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Response, NextFunction } from "express";
+import type { TypedRequestBody } from "../../types/express.js";
+import type { CreateUserBody } from "../../types/types.js";
 
 export const EMAIL_REGEX: RegExp =
   /^(?!\.)(?!.*\.\.)[A-Z0-9._%+-]{1,64}(?<!\.)@[A-Z0-9-]+(\.[A-Z0-9-]+)*\.[A-Z]{2,}$/i;
 
 export const validateCreateUser = (
-  req: Request,
+  req: TypedRequestBody<CreateUserBody>,
   res: Response,
   next: NextFunction
 ) => {
@@ -15,7 +17,7 @@ export const validateCreateUser = (
   }
 
   for (const key of Object.keys(req.body)) {
-    const value = req.body[key];
+    const value = req.body[key as keyof CreateUserBody];
 
     switch (key) {
       case "displayName":

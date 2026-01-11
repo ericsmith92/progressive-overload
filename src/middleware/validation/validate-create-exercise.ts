@@ -1,7 +1,9 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Response, NextFunction } from "express";
+import type { TypedRequestBody } from "../../types/express.js";
+import type { CreateExerciseBody } from "../../types/types.js";
 
 export const validateCreateExercise = (
-  req: Request,
+  req: TypedRequestBody<CreateExerciseBody>,
   res: Response,
   next: NextFunction
 ) => {
@@ -12,7 +14,7 @@ export const validateCreateExercise = (
   }
 
   for (const key of Object.keys(req.body)) {
-    const value = req.body[key];
+    const value = req.body[key as keyof CreateExerciseBody];
 
     switch (key) {
       case "name":
