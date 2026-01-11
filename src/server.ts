@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(middleware.logger);
 app.use(router);
+app.use(middleware.notFound);
 app.use(middleware.errorHandler);
 
 const port = Number(process.env.PORT ?? "3000");
